@@ -63,7 +63,7 @@ export async function run() {
       );
       successPRs.push(pr);
     } catch (error) {
-      exec('git merge --abort');
+      await exec('git merge --abort');
       failedPRs.push(pr);
     }
   }

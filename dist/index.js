@@ -238,7 +238,7 @@ function run() {
                 successPRs.push(pr);
             }
             catch (error) {
-                (0, exec_1.exec)('git merge --abort');
+                yield (0, exec_1.exec)('git merge --abort');
                 failedPRs.push(pr);
             }
         }
