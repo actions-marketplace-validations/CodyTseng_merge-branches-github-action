@@ -48,6 +48,7 @@ export async function run() {
   await exec('git fetch origin');
   await exec(`git checkout ${base}`);
   await exec('git pull origin');
+  await exec(`git branch ${target} -D`, undefined, { ignoreReturnCode: true });
   await exec(`git checkout -b ${target}`);
 
   for (const pr of prsWithSpecifiedLabel) {
