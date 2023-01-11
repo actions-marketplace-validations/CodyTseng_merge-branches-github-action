@@ -1,11 +1,21 @@
-name: 'Your name here'
-description: 'Provide a description here'
-author: 'Your name or organization here'
+name: 'Merge PRs by label'
+description: 'Merge all PRs with the specified label into a branch based on the specified branch.'
+author: 'CodyTseng'
 inputs:
-  milliseconds: # change this
+  token:
     required: true
-    description: 'input description here'
-    default: 'default value if applicable'
+  base:
+    required: true
+  target:
+    required: true
+  label-name:
+    required: true
+  email:
+    required: false
+    default: merge-prs-bot@github.com
+  name:
+    required: false
+    default: merge-prs-bot
 runs:
   using: 'node16'
   main: 'dist/index.js'

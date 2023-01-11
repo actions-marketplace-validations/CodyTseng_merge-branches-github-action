@@ -1,0 +1,31 @@
+name: 'test-action'
+on:
+  workflow_dispatch:
+    inputs:
+      base:
+        description: 'Base branch name'
+        required: true
+        default: 'main'
+        type: string
+      target:
+        description: 'Target branch name'
+        required: true
+        type: string
+      label-name:
+        description: 'A label name to find PRs to merge'
+        required: true
+        type: string
+
+permissions: write-all
+
+jobs:
+  test: # make sure the action works on a clean machine without building
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: ./
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          base: ${{ inputs.base }}
+          target: ${{ inputs.target }}
+          label-name: ${{ inputs.label-name }}
