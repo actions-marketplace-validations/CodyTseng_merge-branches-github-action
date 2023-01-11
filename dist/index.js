@@ -234,7 +234,7 @@ function run() {
                 core.warning(`the base branch of #${pr.number} PR (${pr.url}) is ${pr.baseRefName} not ${base}`);
             }
             try {
-                yield (0, exec_1.exec)(`git merge origin/${pr.headRefName}`);
+                yield (0, exec_1.exec)(`git merge origin/${pr.headRefName} --allow-unrelated-histories`);
                 successPRs.push(pr);
             }
             catch (error) {

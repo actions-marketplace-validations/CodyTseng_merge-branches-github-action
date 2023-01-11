@@ -58,7 +58,9 @@ export async function run() {
       );
     }
     try {
-      await exec(`git merge origin/${pr.headRefName}`);
+      await exec(
+        `git merge origin/${pr.headRefName} --allow-unrelated-histories`,
+      );
       successPRs.push(pr);
     } catch (error) {
       exec('git merge --abort');
