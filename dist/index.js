@@ -226,7 +226,7 @@ function run() {
         yield (0, exec_1.exec)(`git config --global user.name ${name}`);
         yield (0, exec_1.exec)('git fetch origin');
         yield (0, exec_1.exec)(`git checkout ${base}`);
-        yield (0, exec_1.exec)('git pull origin');
+        yield (0, exec_1.exec)(`git pull origin ${base}`);
         yield (0, exec_1.exec)(`git checkout -b ${target}`);
         for (const pr of prsWithSpecifiedLabel) {
             if (pr.baseRefName !== base) {
@@ -237,7 +237,7 @@ function run() {
                 successPRs.push(pr);
             }
             catch (error) {
-                yield (0, exec_1.exec)('git merge --abort');
+                yield (0, exec_1.exec)('git merge --abort', undefined, { ignoreReturnCode: true });
                 failedPRs.push(pr);
             }
         }

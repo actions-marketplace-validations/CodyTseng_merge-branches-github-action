@@ -47,7 +47,7 @@ export async function run() {
   await exec(`git config --global user.name ${name}`);
   await exec('git fetch origin');
   await exec(`git checkout ${base}`);
-  await exec('git pull origin');
+  await exec(`git pull origin ${base}`);
   await exec(`git checkout -b ${target}`);
 
   for (const pr of prsWithSpecifiedLabel) {
@@ -60,7 +60,7 @@ export async function run() {
       await exec(`git merge origin/${pr.headRefName}`);
       successPRs.push(pr);
     } catch (error) {
-      await exec('git merge --abort');
+      await exec('git merge --abort', undefined, { ignoreReturnCode: true });
       failedPRs.push(pr);
     }
   }
