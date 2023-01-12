@@ -227,14 +227,13 @@ function run() {
         yield (0, exec_1.exec)('git fetch origin');
         yield (0, exec_1.exec)(`git checkout ${base}`);
         yield (0, exec_1.exec)('git pull origin');
-        yield (0, exec_1.exec)(`git branch ${target} -D`, undefined, { ignoreReturnCode: true });
         yield (0, exec_1.exec)(`git checkout -b ${target}`);
         for (const pr of prsWithSpecifiedLabel) {
             if (pr.baseRefName !== base) {
                 core.warning(`the base branch of #${pr.number} PR (${pr.url}) is ${pr.baseRefName} not ${base}`);
             }
             try {
-                yield (0, exec_1.exec)(`git merge origin/${pr.headRefName} --allow-unrelated-histories`);
+                yield (0, exec_1.exec)(`git merge origin/${pr.headRefName}`);
                 successPRs.push(pr);
             }
             catch (error) {
@@ -243,8 +242,10 @@ function run() {
             }
         }
         yield (0, exec_1.exec)(`git push origin ${target} -f`);
-        core.info('merged successful PRs:');
-        successPRs.forEach((pr) => core.info(`- ${pr.title} (${pr.url})`));
+        if (successPRs.length > 0) {
+            core.info('merged successful PRs:');
+            successPRs.forEach((pr) => core.info(`- ${pr.title} (${pr.url})`));
+        }
         if (failedPRs.length > 0) {
             core.error('merged failed PRs (need to merge manually):');
             failedPRs.forEach((pr) => core.error(`- ${pr.title} (${pr.url})`));

@@ -48,7 +48,6 @@ export async function run() {
   await exec('git fetch origin');
   await exec(`git checkout ${base}`);
   await exec('git pull origin');
-  await exec(`git branch ${target} -D`, undefined, { ignoreReturnCode: true });
   await exec(`git checkout -b ${target}`);
 
   for (const pr of prsWithSpecifiedLabel) {
@@ -58,9 +57,7 @@ export async function run() {
       );
     }
     try {
-      await exec(
-        `git merge origin/${pr.headRefName} --allow-unrelated-histories`,
-      );
+      await exec(`git merge origin/${pr.headRefName}`);
       successPRs.push(pr);
     } catch (error) {
       await exec('git merge --abort');
@@ -70,8 +67,10 @@ export async function run() {
 
   await exec(`git push origin ${target} -f`);
 
-  core.info('merged successful PRs:');
-  successPRs.forEach((pr) => core.info(`- ${pr.title} (${pr.url})`));
+  if (successPRs.length > 0) {
+    core.info('merged successful PRs:');
+    successPRs.forEach((pr) => core.info(`- ${pr.title} (${pr.url})`));
+  }
 
   if (failedPRs.length > 0) {
     core.error('merged failed PRs (need to merge manually):');
