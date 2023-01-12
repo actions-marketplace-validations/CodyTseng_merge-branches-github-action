@@ -227,6 +227,7 @@ function run() {
         yield (0, exec_1.exec)('git fetch origin');
         yield (0, exec_1.exec)(`git checkout ${base}`);
         yield (0, exec_1.exec)(`git pull origin ${base}`);
+        yield (0, exec_1.exec)(`git branch ${target} -D`, undefined, { ignoreReturnCode: true });
         yield (0, exec_1.exec)(`git checkout -b ${target}`);
         for (const pr of prsWithSpecifiedLabel) {
             if (pr.baseRefName !== base) {
@@ -241,8 +242,8 @@ function run() {
                 failedPRs.push(pr);
             }
         }
-        yield (0, exec_1.exec)(`git push origin ${target} -f`);
         if (successPRs.length > 0) {
+            yield (0, exec_1.exec)(`git push origin ${target} -f`);
             core.info('merged successful PRs:');
             successPRs.forEach((pr) => core.info(`- ${pr.title} (${pr.url})`));
         }

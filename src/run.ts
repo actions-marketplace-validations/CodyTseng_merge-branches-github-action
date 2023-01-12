@@ -48,6 +48,7 @@ export async function run() {
   await exec('git fetch origin');
   await exec(`git checkout ${base}`);
   await exec(`git pull origin ${base}`);
+  await exec(`git branch ${target} -D`, undefined, { ignoreReturnCode: true });
   await exec(`git checkout -b ${target}`);
 
   for (const pr of prsWithSpecifiedLabel) {
@@ -65,9 +66,8 @@ export async function run() {
     }
   }
 
-  await exec(`git push origin ${target} -f`);
-
   if (successPRs.length > 0) {
+    await exec(`git push origin ${target} -f`);
     core.info('merged successful PRs:');
     successPRs.forEach((pr) => core.info(`- ${pr.title} (${pr.url})`));
   }
