@@ -1,8 +1,8 @@
 {
-  "name": "merge-prs-action",
+  "name": "merge-branches-github-action",
   "version": "0.0.0",
   "private": true,
-  "description": "Merge all PRs with the specified label into a branch based on the specified branch.",
+  "description": "Merge all PRs with the specified label into a branch.",
   "main": "lib/main.js",
   "scripts": {
     "build": "tsc",
@@ -15,12 +15,15 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/CodyTseng/merge-prs-action.git"
+    "url": "git+https://github.com/CodyTseng/merge-branches-github-action.git"
   },
   "keywords": [
     "actions",
-    "node",
-    "setup"
+    "merge",
+    "branch",
+    "pr",
+    "pull_request",
+    "label"
   ],
   "author": "codytseng",
   "license": "MIT",

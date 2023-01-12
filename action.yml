@@ -1,21 +1,27 @@
-name: 'Merge PRs by label'
-description: 'Merge all PRs with the specified label into a branch based on the specified branch.'
+name: 'Merge Branches'
+description: 'Merge all PRs with the specified label into a branch.'
 author: 'CodyTseng'
 inputs:
   token:
     required: true
+    description: 'GitHub token'
   base:
     required: true
+    description: 'Base branch name'
   target:
     required: true
+    description: 'New branch name'
   label-name:
     required: true
+    description: 'The label name contained in PRs that need to be merged'
   email:
     required: false
-    default: merge-prs-bot@github.com
+    default: merge-branches-bot@github.com
+    description: 'The email of the committer'
   name:
     required: false
-    default: merge-prs-bot
+    default: merge-branches-bot
+    description: 'The name of the committer'
 runs:
   using: 'node16'
   main: 'dist/index.js'
