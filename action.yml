@@ -4,24 +4,24 @@ author: 'CodyTseng'
 inputs:
   token:
     required: true
-    description: 'GitHub token'
+    description: 'GitHub token.'
   base:
     required: true
-    description: 'Base branch name'
+    description: 'The name of the base branch. Merge operations will be performed on the basis of this branch.'
   target:
     required: true
-    description: 'New branch name'
+    description: 'The name of the target branch. This branch will be checked out from the base branch and accept all merges.'
   label-name:
     required: true
-    description: 'The label name contained in PRs that need to be merged'
+    description: 'The name of a label to find PRs to merge.'
   email:
     required: false
     default: merge-branches-bot@github.com
-    description: 'The email of the committer'
+    description: 'The email of the committer.'
   name:
     required: false
     default: merge-branches-bot
-    description: 'The name of the committer'
+    description: 'The name of the committer.'
 runs:
   using: 'node16'
   main: 'dist/index.js'

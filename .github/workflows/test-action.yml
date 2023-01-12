@@ -3,29 +3,29 @@ on:
   workflow_dispatch:
     inputs:
       base:
-        description: 'Base branch name'
+        description: 'The name of the base branch. Merge operations will be performed on the basis of this branch.'
         required: true
         default: 'main'
         type: string
       target:
-        description: 'Target branch name'
+        description: 'The name of the target branch. This branch will be checked out from the base branch and accept all merges.'
         required: true
         type: string
       label-name:
-        description: 'A label name to find PRs to merge'
+        description: 'The name of a label to find PRs to merge.'
         required: true
         type: string
 
 permissions: write-all
 
 jobs:
-  test: # make sure the action works on a clean machine without building
+  merge-branches: # make sure the action works on a clean machine without building
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
         with:
           fetch-depth: 0
-      - uses: ./
+      - uses: codytseng/merge-branches-github-action@v1
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
           base: ${{ inputs.base }}
