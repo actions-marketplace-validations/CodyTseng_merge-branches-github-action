@@ -1,6 +1,9 @@
-name: 'Merge Branches'
+name: 'Merge Branches By Label'
 description: 'Merge all PRs with the specified label into a branch.'
 author: 'CodyTseng'
+branding:
+  icon: 'git-merge'
+  color: 'green'
 inputs:
   token:
     required: true
